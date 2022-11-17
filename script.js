@@ -21,7 +21,6 @@ const personalMoviedDB = {
 };
 
 
-
 function ratingFilms() {
    for (let i = 1; i < 2; i++) {
       const a = prompt('Один із останніх переглянутих фільмів?', '');
