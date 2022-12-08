@@ -1,121 +1,80 @@
 'use strict';
 
-let numberOfFilms;
-
-function start() {
-   numberOfFilms = prompt('Скільки фільмів ви переглянули?', '');
-   while(numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)) {
-      numberOfFilms = prompt('Скільки фільмів ви переглянули?', '');
-   }
-}
-
-start();
-
-
 const personalMoviedDB = {
-   count: numberOfFilms,
+   count: '',
    movies: {},
    actors: {},
    genres: [],
-   privat: false
+   privat: false,
+
+   start: function () {
+      personalMoviedDB.count = prompt('Скільки фільмів ви переглянули?', '');
+      while (personalMoviedDB.count == '' || personalMoviedDB.count == null || isNaN(personalMoviedDB.count)) {
+         personalMoviedDB.count = prompt('Скільки фільмів ви переглянули?', '');
+      }
+   },
+
+   ratingFilms: function () {
+      for (let i = 1; i < 2; i++) {
+         const a = prompt('Один із останніх переглянутих фільмів?', '').trim();
+         const b = prompt('Ваша оцінка данного фільму?', '');
+         if (a != null && b != null && a != '' && b != '' && a.length < 50) {
+            personalMoviedDB.movies[a] = b;
+            console.log('done!');
+         } else {
+            console.log('error!');
+            i--;
+         }
+      }
+   },
+
+   movieDB: function () {
+      if (personalMoviedDB.count <= 10) {
+         alert('Переглянуто доволі мало фільмів');
+      } else if (personalMoviedDB.count <= 30) {
+         alert('Ви класичний глядач');
+      } else if (personalMoviedDB.count > 30) {
+         alert('Ви кіноман!');
+      } else {
+         alert('Сталась помилка');
+      }
+   },
+
+   toggleVesibleMyDB: function () {
+      if (personalMoviedDB.privat) {
+         personalMoviedDB.privat = false;
+      } else {
+         personalMoviedDB.privat = true;
+      }
+   },
+
+   showMyDB: function (hidden) {
+      if (!hidden) {
+         console.log(personalMoviedDB);
+      }
+   },
+
+   writeYourGenres: function () {
+      for (let i = 1; i <= 2; i++) {
+         let userGenre = prompt(`Ваш улюблений жанр під номером ${i}`);
+         if (userGenre === null || userGenre === '') {
+            console.log('Дані не введені або натиснута відміна');
+            i--;
+         } else {
+            personalMoviedDB.genres[i - 1] = userGenre;
+         }
+
+      }
+      personalMoviedDB.genres.forEach(function (item, i) {
+         console.log(`Улюблений жанр №${i + 1} - це ${item}`);
+      });
+   }
+
 };
 
 
-function ratingFilms() {
-   for (let i = 1; i < 2; i++) {
-      const a = prompt('Один із останніх переглянутих фільмів?', '');
-      const b = prompt('Ваша оцінка данного фільму?', '');
-      if (a != null && b != null && a != '' && b != '' && a.length < 50) {
-         personalMoviedDB.movies[a] = b;
-         console.log('done!');
-      } else {
-         console.log('error!');
-         i--;
-      }
-   }
-}
-
-ratingFilms();
-
-
-function movieDB() {
-   if (personalMoviedDB.count <= 10) {
-      alert('Переглянуто доволі мало фільмів');
-   } else if (personalMoviedDB.count <= 30) {
-      alert('Ви класичний глядач');
-   } else if (personalMoviedDB.count > 30) {
-      alert('Ви кіноман!');
-   } else {
-      alert('Сталась помилка');
-   }
-}
-
-movieDB();
-
-function showMyDB(hidden) {
-   if(!hidden) {
-      console.log(personalMoviedDB);
-   }
-}
-
-showMyDB(personalMoviedDB.privat);
-
-
-function writeYourGenres() {
-   for(let i = 1; i <= 3; i++) {
-      personalMoviedDB.genres[i - 1] = prompt(`Ваш улюблений жанр під номером ${i}`);
-   }
-}
-
-writeYourGenres();
-
-//function returnNeighboringNumbers(numm) {
-//   return [numm - 1, numm, numm + 1];
-//}
-//console.log(returnNeighboringNumbers(5));
 
 
 
 
 
-//function getMathResult(state, progress) {
-//   if (typeof (progress) !== 'number' || progress <= 0) {
-//      return state;
-//   } 
-
-
-
-//let str = '';
-
-//for (let i = 1; i <= progress; i++) {
-//    if (i === progress) {
-//        str += `${state * i}`;
-//    } else {
-//        str += `${state * i}---`;
-
-//    }
-//}
-//return str;
-//}
-//console.log(getMathResult(2, 5));
-
-
-//function getMathResult(base, progress) {
-//   if(typeof(progress) !== 'number' || progress <= 0){
-//       return base;
-//   }
-//   let result = '';
-   
-//   for(let i = 1; i <= progress; i++) {
-//       if (i === progress) {
-//         result += `${base * i}`;  
-//       } else {
-//           result += `${base * i}---`;
-//       }
-//   }
-//   return result;
-//}
-
-//console.log(getMathResult(3, 0));
-
-//Якщо progress не є номером або progress дорівнює або менше нуля поверни 'state', якщо все вірно поверни 'Все працює!'
